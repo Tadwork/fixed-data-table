@@ -49,6 +49,7 @@ class ObjectDataExample extends React.Component {
 
     this.state = {
       dataList: new FakeObjectDataListStore(1000000),
+      open:false
     };
   }
 
@@ -68,42 +69,52 @@ class ObjectDataExample extends React.Component {
           width={50}
         />
         <Column
-          header={<Cell>First Name</Cell>}
+          header={(
+            <Cell>First Name <a onClick={()=>this.setState((prevState)=>({open:!prevState.open}))}>open</a></Cell>
+            )}
           cell={<LinkCell data={dataList} col="firstName" />}
           fixed={true}
           width={100}
         />
-        <Column
-          header={<Cell>Last Name</Cell>}
-          cell={<TextCell data={dataList} col="lastName" />}
-          fixed={true}
-          width={100}
-        />
-        <Column
+        {this.state.open && (
+          <Column
+            header={<Cell>Last Name</Cell>}
+            cell={<TextCell data={dataList} col="lastName" />}
+            fixed={true}
+            width={100}
+          />
+        )}
+
+        {this.state.open && (<Column
           header={<Cell>City</Cell>}
           cell={<TextCell data={dataList} col="city" />}
           width={100}
         />
-        <Column
+        )}
+        {this.state.open && (<Column
           header={<Cell>Street</Cell>}
           cell={<TextCell data={dataList} col="street" />}
           width={200}
         />
-        <Column
+        )}
+        {this.state.open && (<Column
           header={<Cell>Zip Code</Cell>}
           cell={<TextCell data={dataList} col="zipCode" />}
           width={200}
         />
-        <Column
+        )}
+        {this.state.open && (<Column
           header={<Cell>Email</Cell>}
           cell={<LinkCell data={dataList} col="email" />}
           width={200}
         />
-        <Column
+        )}
+        {this.state.open && (<Column
           header={<Cell>DOB</Cell>}
           cell={<DateCell data={dataList} col="date" />}
           width={200}
         />
+        )}
       </Table>
     );
   }
